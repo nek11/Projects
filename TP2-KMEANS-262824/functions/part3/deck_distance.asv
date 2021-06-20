@@ -1,0 +1,29 @@
+function [dist] = deck_distance(deck, Mu, type)
+%DECK_DISTANCE Calculate the distance between a partially filled deck and
+%the centroids
+%
+%   input -----------------------------------------------------------------
+%   
+%       o deck : a partially filled deck
+%       o Mu : Value of the centroids
+%       o type : type of distance to use {'L1', 'L2', 'Linf'}
+%
+%   output ----------------------------------------------------------------
+%
+%       o dist : k X M the distance to the k centroids
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+idx = find(deck);
+cards = nonzeros(deck);
+
+for i=1:length(idx)
+    for k=1:size(Mu,2)
+         distance(i) = distance_to_centroids(cards(i), min(abs(Mu(idx,k)-cards(i))), type)
+    end
+end
+
+dist = distance_to_centroids(cards, Mu_corr, type);
+    
+    
+end
+
